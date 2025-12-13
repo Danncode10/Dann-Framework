@@ -31,7 +31,7 @@
 
 * Who are the primary users?
 * Are there secondary users or admins?
-* What is their technical skill level?
+* What is their technical skill level (This refers to how comfortable users are with technology and digital platforms.) ?
 * What devices do they commonly use?
 
 **Suggested Answer Guide**
@@ -141,6 +141,18 @@
 * V2: UI/UX
 * V3: AI / automation
 * V4: Mobile app
+
+## 1.10 Monetization Strategy
+
+**Questions**
+
+* Does this web/app have premium features?
+* Is it free?
+* Does it run ads?
+
+**Suggested Answer Guide**
+
+> “The app is ___ (free/paid/ads-supported). Premium features include ___.”
 
 ---
 
