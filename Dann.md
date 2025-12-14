@@ -293,7 +293,7 @@
 
 ## 4.1 Context Model
 
-Use Case Diagram
+System Context Diagram
 **Question:** Who interacts with what?
 
 ## 4.2 Interaction Model
