@@ -226,6 +226,7 @@
 * Backend: FastAPI / Node?
 * Database: RDS / DynamoDB?
 * Hosting: EC2 / ECS / Lambda?
+* Domain & DNS (If Web): 
 
 **Suggested Guide**
 
