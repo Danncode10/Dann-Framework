@@ -243,11 +243,25 @@
 * IAM roles?
 * Encryption strategy?
 * Secrets storage?
+* What to include in .env files?
 * Backup plan?
 
 **Suggested Guide**
 
 > Use AWS Cognito, IAM roles, Secrets Manager, CloudWatch
+
+## 2.8 Environment Variables (.env) Questionnaire
+
+**Questions**
+
+* What environment variables are required for the application (e.g., API keys, database URLs, ports)?
+* Which variables contain sensitive information (secrets) that should not be committed to version control?
+* How will .env files be managed for different environments (development, staging, production)?
+* What is the process for sharing .env templates or examples without exposing secrets?
+
+**Suggested Answer Guide**
+
+> “Required variables include ___ (e.g., DATABASE_URL, API_KEY). Sensitive variables are ___ and will be stored in ___ (e.g., AWS Secrets Manager for production). Use .env.example for templates, and document setup in README.”
 
 ---
 
