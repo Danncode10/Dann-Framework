@@ -293,7 +293,7 @@
 
 ## 4.1 Context Model
 
-System Context Diagram
+System Context Diagram (Input, Process, Output arrows and System at the center)
 **Question:** Who interacts with what?
 
 ## 4.2 Interaction Model
@@ -425,6 +425,127 @@ State Machine Diagram
 * Costs are known
 * Security is planned
 * Future is mapped
+
+---
+
+## **Recommended Folder Structure for Website Projects**
+
+To maintain consistency across projects and make it easy to switch between them, follow this folder structure for website-based applications. This structure is based on the Dann Framework phases and supports a backend-frontend architecture.
+
+```
+.
+├── backend
+│   ├── app
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   ├── api
+│   │   ├── auth
+│   │   ├── core
+│   │   ├── crud
+│   │   ├── main.py
+│   │   └── models
+│   ├── dev.sh
+│   ├── poetry.lock
+│   ├── pyproject.toml
+│   ├── seed.py
+│   └── tests
+├── Dockerfile
+├── Docs
+│   ├── api_docs
+│   │   └── README.md
+│   ├── Calendar.md
+│   ├── DannFramework_docs
+│   │   ├── Phase 1: Project Planning & Problem Definition.md
+│   │   ├── Phase 2: Software Requirements Specification (SRS).md
+│   │   ├── Phase 3: Software Design.md
+│   │   ├── Phase 4: System Modeling (UML).md
+│   │   ├── Phase 5: SDLC Strategy.md
+│   │   ├── Phase 6: Deployment, Operations & Cost.md
+│   │   ├── Phase 7: Maintenance & Sustainability.md
+│   │   └── Phase 8: Final Review Checklist.md
+│   ├── git_commit_format.md
+│   └── Versions
+│       ├── Changelog
+│       ├── README.md
+│       ├── Version 1.md
+│       └── Version 2.md
+├── README.md
+├── tunnel.sh
+├── ui
+│   ├── CONTRIBUTING.md
+│   ├── dist
+│   │   ├── assets
+│   │   └── index.html
+│   ├── index.html
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── playwright.config.js
+│   ├── postcss.config.js
+│   ├── README.md
+│   ├── requirements.txt
+│   ├── src
+│   │   ├── App.jsx
+│   │   ├── components
+│   │   ├── layouts
+│   │   ├── main.jsx
+│   │   ├── pages
+│   │   ├── services
+│   │   ├── store
+│   │   ├── styles
+│   │   ├── test
+│   │   └── utils
+│   ├── tailwind.config.js
+│   ├── tests
+│   │   └── basic-flows.spec.js
+│   └── vite.config.js
+└── venv
+    ├── include
+    │   ├── python3.12
+    │   └── site
+    ├── lib
+    │   └── python3.12
+    └── pyvenv.cfg
+```
+
+### Folder Descriptions
+
+- **backend/**: Contains the server-side application code. Uses FastAPI/Python structure.
+  - **app/**: Main application module.
+    - **api/**: API endpoint definitions.
+    - **auth/**: Authentication logic.
+    - **core/**: Core configurations and utilities.
+    - **crud/**: Database CRUD operations.
+    - **models/**: Data models (e.g., SQLAlchemy).
+  - **tests/**: Backend unit and integration tests.
+  - **dev.sh**: Development script.
+  - **poetry.lock/pyproject.toml**: Dependency management.
+  - **seed.py**: Database seeding script.
+
+- **ui/**: Frontend application. Clone a starting UI repository here (e.g., React/Vite setup).
+  - **src/**: Source code.
+    - **components/**: Reusable UI components.
+    - **layouts/**: Page layouts.
+    - **pages/**: Application pages.
+    - **services/**: API service functions.
+    - **store/**: State management (e.g., Redux, Zustand).
+    - **styles/**: Styling files.
+    - **utils/**: Utility functions.
+  - **tests/**: Frontend tests (e.g., Playwright).
+  - **dist/**: Build output.
+
+- **Docs/**: Documentation following the Dann Framework phases.
+  - **api_docs/**: API documentation.
+  - **DannFramework_docs/**: Documentation for each phase as per the framework.
+  - **Versions/**: Version-specific changelogs and notes.
+  - **git_commit_format.md**: Guidelines for commit messages.
+
+- **venv/**: Python virtual environment (created with `python -m venv venv`).
+
+- **Dockerfile**: Containerization for deployment.
+
+- **tunnel.sh**: Script for tunneling (e.g., ngrok).
+
+This structure ensures familiarity and organization across all projects, aligning with the Dann Framework's emphasis on clarity and planning.
 
 ---
 
