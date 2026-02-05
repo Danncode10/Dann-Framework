@@ -218,20 +218,22 @@
 
 ---
 
-## 2.6 Tech Stack Selection (AWS-First)
+## 2.6 Tech Stack Selection
 
 **Questions**
 
-* Frontend: React / Next.js?
-* Backend: FastAPI / Node?
-* Database: RDS / DynamoDB?
-* Hosting: EC2 / ECS / Lambda?
-* Domain & DNS (If Web): 
+*   **Frontend:** Next.js (Primary), React, Vue.js, Svelte?
+*   **Backend as a Service (BaaS):** Supabase (Primary), Firebase?
+*   **Custom Backend (Optional):** FastAPI, Node.js (Express), Serverless Functions?
+*   **Database:** PostgreSQL (via Supabase), other SQL/NoSQL?
+*   **Hosting:** Vercel (for Next.js), Render, Fly.io, AWS (EC2/ECS/Lambda)?
+*   **Domain & DNS (If Web):** 
 
 **Suggested Guide**
 
-> Start simple: Monolith + EC2 + RDS
-> Scale later: Microservices + ECS
+>   **Recommended Baseline for Solo/Startup:** Next.js (Frontend) + Supabase (BaaS for Database, Auth, Storage).
+>   **Consider FastAPI:** If complex, custom Python backend logic is required beyond what a BaaS provides.
+>   Start simple, leverage managed services for speed. Focus on core features first.
 
 ---
 
@@ -239,16 +241,16 @@
 
 **Questions**
 
-* Auth method?
-* IAM roles?
-* Encryption strategy?
-* Secrets storage?
+* Auth method (e.g., Supabase Auth, OAuth)?
+* Role-based access control?
+* Encryption strategy (data in transit, data at rest)?
+* Secrets management (e.g., environment variables, external secret stores)?
 * What to include in .env files?
-* Backup plan?
+* Backup and recovery plan?
 
 **Suggested Guide**
 
-> Use AWS Cognito, IAM roles, Secrets Manager, CloudWatch
+> Leverage established BaaS security features (like Supabase Auth and RLS). For custom backend, implement robust authentication and authorization. Use environment variables for non-sensitive config and dedicated secret management tools for sensitive credentials.
 
 ## 2.8 Environment Variables (.env) Questionnaire
 
@@ -261,7 +263,7 @@
 
 **Suggested Answer Guide**
 
-> “Required variables include ___ (e.g., DATABASE_URL, API_KEY). Sensitive variables are ___ and will be stored in ___ (e.g., AWS Secrets Manager for production). Use .env.example for templates, and document setup in README.”
+> “Required variables include ___ (e.g., SUPABASE_URL, SUPABASE_ANON_KEY, API_KEY). Sensitive variables are ___ and will be securely managed (e.g., through your hosting provider's secret management for production like Vercel's Environment Variables, or a dedicated secret management tool). Use .env.example for templates, and document setup in README.”
 
 ---
 
@@ -352,7 +354,7 @@ State Machine Diagram
 
 **Suggested Guide**
 
-> GitHub Actions → AWS ECS / EC2
+> GitHub Actions → Vercel (for Next.js) / Other hosting platforms
 
 ---
 
@@ -370,17 +372,17 @@ State Machine Diagram
 
 ---
 
-## 6.4 Cost Estimation (AWS)
+## 6.4 Cost Estimation (Cloud/SaaS)
 
 **Questions**
 
-* Monthly cost?
+* Monthly cost (for hosting, BaaS, etc.)?
 * Cost per user?
 * Budget alerts?
 
 **Suggested Guide**
 
-> Set AWS Budget alerts early
+> Monitor costs through your chosen cloud/SaaS providers (e.g., Vercel, Supabase, Render) and set up their native budget alerts.
 
 ---
 
@@ -428,29 +430,16 @@ State Machine Diagram
 
 ---
 
-## **Recommended Folder Structure for Website Projects**
+## **Recommended Project Structure for Solo Developers (Next.js, Supabase, Optional FastAPI)**
 
-To maintain consistency across projects and make it easy to switch between them, follow this folder structure for website-based applications. This structure is based on the Dann Framework phases and supports a backend-frontend architecture.
+To maintain consistency across projects and provide clarity for solo developers, this structure is tailored for a Next.js frontend leveraging Supabase for backend services, with an optional dedicated FastAPI backend. It aligns with the Dann Framework's phases.
 
 ```
 .
-├── backend
-│   ├── app
-│   │   ├── __init__.py
-│   │   ├── __pycache__
-│   │   ├── api
-│   │   ├── auth
-│   │   ├── core
-│   │   ├── crud
-│   │   ├── main.py
-│   │   └── models
-│   ├── dev.sh
-│   ├── poetry.lock
-│   ├── pyproject.toml
-│   ├── seed.py
-│   └── tests
-├── Dockerfile
-├── Docs
+├── .env.example
+├── .gitignore
+├── README.md
+├── docs
 │   ├── api_docs
 │   │   └── README.md
 │   ├── Calendar.md
@@ -469,81 +458,61 @@ To maintain consistency across projects and make it easy to switch between them,
 │       ├── README.md
 │       ├── Version 1.md
 │       └── Version 2.md
-├── README.md
-├── tunnel.sh
-├── ui
-│   ├── CONTRIBUTING.md
-│   ├── dist
-│   │   ├── assets
-│   │   └── index.html
-│   ├── index.html
-│   ├── package-lock.json
+├── nextjs-app
+│   ├── .env.local.example
+│   ├── .eslintrc.json
+│   ├── .gitignore
+│   ├── next.config.mjs
 │   ├── package.json
-│   ├── playwright.config.js
 │   ├── postcss.config.js
-│   ├── README.md
-│   ├── requirements.txt
+│   ├── public
 │   ├── src
-│   │   ├── App.jsx
+│   │   ├── app                # Next.js App Router (pages, API routes)
+│   │   │   ├── api
+│   │   │   └── (auth)         # Example for auth routes/middleware
 │   │   ├── components
-│   │   ├── layouts
-│   │   ├── main.jsx
-│   │   ├── pages
-│   │   ├── services
-│   │   ├── store
+│   │   ├── lib                # Utility functions, Supabase client setup
 │   │   ├── styles
-│   │   ├── test
-│   │   └── utils
-│   ├── tailwind.config.js
-│   ├── tests
-│   │   └── basic-flows.spec.js
-│   └── vite.config.js
-└── venv
-    ├── include
-    │   ├── python3.12
-    │   └── site
-    ├── lib
-    │   └── python3.12
-    └── pyvenv.cfg
+│   │   └── types
+│   ├── tailwind.config.ts
+│   ├── tsconfig.json
+│   └── yarn.lock # or package-lock.json
+├── (optional-fastapi-backend)
+│   ├── app
+│   │   ├── api
+│   │   ├── core
+│   │   ├── crud
+│   │   ├── main.py
+│   │   └── models
+│   ├── requirements.txt # or pyproject.toml
+│   └── tests
+└── Dockerfile # For optional-fastapi-backend
 ```
 
-### Folder Descriptions
+**Folder Descriptions**
 
-- **backend/**: Contains the server-side application code. Uses FastAPI/Python structure.
-  - **app/**: Main application module.
-    - **api/**: API endpoint definitions.
-    - **auth/**: Authentication logic.
-    - **core/**: Core configurations and utilities.
-    - **crud/**: Database CRUD operations.
-    - **models/**: Data models (e.g., SQLAlchemy).
-  - **tests/**: Backend unit and integration tests.
-  - **dev.sh**: Development script.
-  - **poetry.lock/pyproject.toml**: Dependency management.
-  - **seed.py**: Database seeding script.
+-   **`.env.example` / `.env.local.example`**: Templates for environment variables to ensure consistent setup across environments.
+-   **`docs/`**: Comprehensive documentation, including API documentation and specific phase documents from the Dann Framework.
+-   **`nextjs-app/`**: The main Next.js application, serving as the frontend and potentially containing API routes for basic backend functionalities.
+    -   **`src/app/`**: Next.js App Router specific files.
+        -   **`api/`**: Next.js API routes (e.g., for server-side logic, interacting with external APIs, or proxying requests).
+        -   **`(auth)/`**: Example grouping for authentication-related routes or middleware.
+    -   **`src/components/`**: Reusable UI components.
+    -   **`src/lib/`**: Client-side logic, Supabase client initialization, and utility functions.
+    -   **`src/styles/`**: Global styles and styling configurations.
+    -   **`src/types/`**: TypeScript type definitions.
+-   **`(optional-fastapi-backend)/`**: This directory is included if a dedicated FastAPI backend is necessary for complex, custom logic not efficiently handled by Supabase or Next.js API routes.
+    -   **`app/`**: The core FastAPI application.
+        -   **`api/`**: FastAPI endpoint definitions.
+        -   **`core/`**: Core configurations and utilities for FastAPI.
+        -   **`crud/`**: Database CRUD operations (if FastAPI manages a separate database or complex interactions).
+        -   **`main.py`**: The main FastAPI application entry point.
+        -   **`models/`**: FastAPI data models (e.g., Pydantic).
+    -   **`requirements.txt` / `pyproject.toml`**: Python dependency management.
+    -   **`tests/`**: Backend unit and integration tests.
+-   **`Dockerfile`**: For containerizing the optional FastAPI backend for deployment, if used. This would be located in the optional-fastapi-backend directory, or at the root if a Docker Compose setup is preferred.
 
-- **ui/**: Frontend application. Clone a starting UI repository here (e.g., React/Vite setup).
-  - **src/**: Source code.
-    - **components/**: Reusable UI components.
-    - **layouts/**: Page layouts.
-    - **pages/**: Application pages.
-    - **services/**: API service functions.
-    - **store/**: State management (e.g., Redux, Zustand).
-    - **styles/**: Styling files.
-    - **utils/**: Utility functions.
-  - **tests/**: Frontend tests (e.g., Playwright).
-  - **dist/**: Build output.
-
-- **Docs/**: Documentation following the Dann Framework phases.
-  - **api_docs/**: API documentation.
-  - **DannFramework_docs/**: Documentation for each phase as per the framework.
-  - **Versions/**: Version-specific changelogs and notes.
-  - **git_commit_format.md**: Guidelines for commit messages.
-
-- **venv/**: Python virtual environment (created with `python -m venv venv`).
-
-- **Dockerfile**: Containerization for deployment.
-
-- **tunnel.sh**: Script for tunneling (e.g., ngrok).
+This structure allows for a clear separation of concerns, flexibility to scale, and easy integration of additional services while keeping the core development experience focused on Next.js and Supabase for most common use cases.
 
 This structure ensures familiarity and organization across all projects, aligning with the Dann Framework's emphasis on clarity and planning.
 
